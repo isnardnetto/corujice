@@ -15,7 +15,6 @@ describe("Create a company - API Test", () => {
         expect(response.body).to.have.property("id");
         companyId = response.body.id;
         cy.log("Company criada com sucesso!");
-        cy.task("log", companyId);
       })
       .then(() => {
         cy.request("GET", `/companies/${companyId}`).then((response) => {
