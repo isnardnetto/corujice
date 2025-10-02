@@ -13,14 +13,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run Cypress Tests
-        uses: cypress-io/github-action@v6
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          working-directory: ./cypress-api-automation
-          build: npm run build --if-present
-          start: echo "API externa, não precisa start"
-          wait-on: "https://corujice-vendas-api.onrender.com"
-          wait-on-timeout: 60
-          spec: cypress/api/**/*.cy.js
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./cypress-api-automation
+
+      - name: Run Cypress tests
+        run: npm run test:api
+        working-directory: ./cypress-api-automation
         env:
           CYPRESS_baseUrl: https://corujice-vendas-api.onrender.com
+
+      - name: Upload artifacts on failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress-api-automation/cypress/screenshots
+            cypress-api-automation/cypress/videos
