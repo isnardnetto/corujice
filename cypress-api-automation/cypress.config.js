@@ -16,9 +16,18 @@ module.exports = defineConfig({
     video: true,
     screenshotOnRunFailure: true,
 
-    setupNodeEvents(on, config) {},
+    setupNodeEvents(on, config) {
+      // Registrar a task 'log' para aparecer no terminal
+      on("task", {
+        log(message) {
+          console.log("\n=== CYPRESS LOG ===");
+          console.log(message);
+          console.log("===================\n");
+          return null;
+        },
+      });
+    },
   },
-
   env: {
     apiUrl: "https://corujice-vendas-api.onrender.com",
     timeout: 10000,
