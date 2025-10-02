@@ -1,0 +1,10 @@
+name: End-to-end tests
+on:
+jobs:
+  cypress-run:
+  runs-on: ununtu-22.04
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Cypress run
+      uses: cypress-io/github-actuion@v5
