@@ -31,7 +31,7 @@ describe("Create a company - API Test", () => {
       });
   });
 
-  it("delete a company", () => {
+  it("delete a company again", () => {
     const randomId = Math.floor(Math.random() * 1000000);
     const deleteCompany = {
       name: "Empresa Exemplo",
